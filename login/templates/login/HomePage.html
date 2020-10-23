@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<title>Beijing housing price prediction platform</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+  
+  .column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+  height:400px
+};
+
+
+  .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="#home" class="w3-bar-item w3-button"><b>BEIJING</b> Housing</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#overviews" class="w3-bar-item w3-button">Overviews</a>
+      <a href="#projects" class="w3-bar-item w3-button">Price per district</a>
+      <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+      <a href="{% url 'form' %}" class="btn btn-primary">Sign up</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <img class="w3-image" src="{% static 'Home Screen img/home pic.jpg' %}" alt="Architecture" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>BEIJING</b></span> <span class="w3-hide-small w3-text-light-grey">Housing</span></h1>
+    
+  </div>
+  <a href = "{% url 'form' %}" class="w3-display-bottommiddle btn btn-primary" >Sign up</a>
+  
+</header>
+<p style="text-align:center;font-size: large;">Sign up to start predicting and save your prediction</p>
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+    <div class="w3-container w3-padding-32" id="overviews">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Overviews</h3>
+    </div>
+    
+    <div class="row" id='overviews'>
+        <div class="column">
+          <img src="{% static 'Home Screen img/all dist.png' %}" alt="Snow" style="width:100%">
+        </div>
+        <div class="column">
+          <img src="{% static 'Home Screen img/map.png' %}" alt="Forest" style="width:80%">
+        </div>
+    </div>
+  </div> 
+  <img class='container' src="{% static 'Home Screen img/dictionary.png' %}">
+ 
+  <p>As you can see from the graphs above, housing price in Beijing was extremelly bubble in every single district but they shared the same trend. Housing price in Beijing slowly increased from 2002 to 2015 but rocketed from 2015-2017 then decreased slightly in 2018.</p>
+  <p>Besides, housing price also increases as we move into central of the city</p>
+      
+
+  <!-- Project Section -->
+  <div class="w3-container w3-padding-32" id="projects">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Housing price per district</h3>
+  </div>
+
+  <div class="w3-row-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Dongcheng</div>
+        <img src="{% static 'Home Screen img/dist1.png' %}" alt="House" style="width:100%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Fengtai</div>
+        <img src="{% static 'Home Screen img/dist2.png' %}" alt="House" style="width:100%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Pinggu</div>
+        <img src="{% static 'Home Screen img/dist3.png' %}" alt="House" style="width:100%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Daxing</div>
+        <img src="{% static 'Home Screen img/dist4.png' %} " alt="House" style="width:100%">
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Fangshan</div>
+        <img src="{% static 'Home Screen img/dist5.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Changping</div>
+        <img src="{% static 'Home Screen img/dist6.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Chaoyang</div>
+        <img src="{% static 'Home Screen img/dist7.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Haidian</div>
+        <img src="{% static 'Home Screen img/dist8.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Shijingshan</div>
+        <img src="{% static 'Home Screen img/dist9.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Xicheng</div>
+        <img src="{% static 'Home Screen img/dist10.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding">Tongzhou</div>
+        <img src="{% static 'Home Screen img/dist11.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <div class="w3-display-container">
+        <div class="w3-display-topmiddle w3-black w3-padding" style="left:'0%';top:'0%'">Mentougou</div>
+        <img src="{% static 'Home Screen img/dist12.png' %}" alt="House" style="width:99%">
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <div class="w3-container w3-padding-32" id="about">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
+  </div>
+
+  <div class="w3-row-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <img src="{% static 'Home Screen img/Long Ngo.jpg' %}" alt="Long Ngo" style="width:100%">
+      <h3>LONG NGO</h3>
+      <p class="w3-opacity">Data Scientist</p>
+      <p>Housing price in Beijing is extremelly bubble. Having a tools to predict housing price based on location, house characteristic, time will help customer locate the price range for their house.</p>
+      
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
+    <p>Lets get in touch!!!</p>
+    <a href="https://www.linkedin.com/in/ngoduclong46/" class="btn btn-primary">Linkedin</a>
+    <a href="https://github.com/lucasngo" class="btn btn-primary">Github</a>
+  </div>
+
+<!-- End page content -->
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+  <p title="W3.CSS" target="_blank" class="w3-hover-text-green"></p>
+</footer>
+
+</body>
+</html>
+

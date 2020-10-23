@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="colorlib.com">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+    <link href="../static/search/css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+      .homebutton{
+        background-color: whitesmoke;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+        <a href="{% url 'index' %}" class="w3-bar-item w3-button"><b>BEIJING</b> Housing</a>
+        <div class='w3-right w3-hide-small'>
+            <a href="{% url 'home' user_id %}" class="btn btn-primary homebutton" >Home</a>
+            <a href="{% url 'predict' user_id %}" class="btn btn-primary">Predict</a>
+
+        </div>
+      </div>
+  </div>
+    <div class="s008">
+      <form action="{% url 'search_collect' user_id %}" method="post">
+        {% csrf_token %}
+        <div class="inner-form">
+          <div class="advance-search">
+            <span class="desc">Advanced Search</span>
+            <div class="row">
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="district">
+                    <option placeholder="" value="">District</option>
+                    
+                    {% for dist in district %}
+                      <option value="{{dist.0}}">{{dist.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="subway">
+                    <option placeholder="" value="">Subway</option>
+                    {% for sub in subway %}
+                      <option value="{{sub.0}}">{{sub.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="elevator">
+                    <option placeholder="" value="">Elevator</option>
+                    
+                    {% for ele in elevator %}
+                      <option value="{{ele.0}}">{{ele.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="buildingType">
+                    <option placeholder="" value="">Building Type</option>
+                    
+                    {% for btype in buildingType %}
+                      <option value="{{btype.0}}">{{btype.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="buildingStructure">
+                    <option placeholder="" value="">Building Structure</option>
+                    
+                    {% for bstruc in buildingStructure %}
+                      <option value="{{bstruc.0}}">{{bstruc.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <input class='input-square' type='number' name='square' placeholder="Area of the apartment">
+                </div>
+              </div>
+            </div>
+            <div class="row second">
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="bedroom">
+                    <option placeholder="" value="">Number of bedroom</option>
+                    {% for i in '01234567'|make_list %}
+                      <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="kitchen">
+                    <option placeholder="" value="">Number of Kitchen</option>
+                    {% for i in '01234'|make_list %}
+                      <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="livingRoom">
+                    <option placeholder="" value="">Number of livingroom</option>
+                    {% for i in '01234'|make_list %}
+                      <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row third">
+              <div class="input-field">
+                <div class="result-count">
+                <div class="group-btn">
+                  <button class="btn-delete" id="delete">Reset</button>
+                  <button type='submit' class="btn-search">Search</button>
+                  {% if empty_field == True %}
+                  <h3 class="alert alert-warning" role="alert">Every field must be filled</h3>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="../static/search/js/extention/choices.js"></script>
+    <script>
+      const customSelects = document.querySelectorAll("select");
+      const deleteBtn = document.getElementById('delete')
+      const choices = new Choices('select',
+      {
+        searchEnabled: false,
+        removeItemButton: true,
+        itemSelectText: '',
+      });
+      for (let i = 0; i < customSelects.length; i++)
+      {
+        customSelects[i].addEventListener('addItem', function(event)
+        {
+          if (event.detail.value)
+          {
+            let parent = this.parentNode.parentNode
+            parent.classList.add('valid')
+            parent.classList.remove('invalid')
+          }
+          else
+          {
+            let parent = this.parentNode.parentNode
+            parent.classList.add('invalid')
+            parent.classList.remove('valid')
+          }
+        }, false);
+      }
+      deleteBtn.addEventListener("click", function(e)
+      {
+        e.preventDefault()
+        const deleteAll = document.querySelectorAll('.choices__button')
+        for (let i = 0; i < deleteAll.length; i++)
+        {
+          deleteAll[i].click();
+        }
+      });
+
+    </script>
+  </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

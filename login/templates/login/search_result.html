@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <h1>Seach result</h1>
+        <style>
+            .flex-container {
+                display: flex;
+                flex-flow: row wrap;
+                width: 80%;
+                border: 2px solid black;
+                border-radius: 40px;
+                padding: 20px;
+                margin: 20px;
+                }
+                .flex-it:link, .flex-it:visited {
+                    background-color:#EBEBEB;
+                    width: 90%;
+                    color: black;
+                    padding: 14px 25px;
+                    text-decoration: none;
+                    display: inline-block;
+                    align-self: center;
+                    margin:10px;
+                    border-radius: 20px;
+                    }
+
+                .flex-it:hover, .flex-it:active {
+                    background-color: #EBEBEB;   
+                    
+}
+        </style>
+    </head>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+              <a href="{% url 'index' %}" class="w3-bar-item w3-button"><b>BEIJING</b> Housing</a>
+              <div class='w3-right w3-hide-small'>
+                  <a href="{% url 'home' user_id %}" class="btn btn-primary homebutton" style=>Home</a>
+                  <a href="{% url 'predict' user_id %}" class="btn btn-primary">Predict</a>
+      
+              </div>
+            </div>
+        </div>
+        <div class='container'>
+            <h1>Search:</h1>
+            {% if search|length == 0 %}
+                <p>there is no house with that characteristics</p>
+            {% else %}
+                <h2>The first 20 houses are:</h3>
+                <p>select the house and click save to save your favourite house in history</p>
+                <form action="{% url 'addsearch' user_id %}" method="post">
+                    
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary homebutton" style="left:80%;position: relative;">Save</button>
+                    {% for item in search %}
+                    <div class="form-check">
+                        <input class="form-check-input" style="width:80px;height:80px;" type="checkbox" value="{{item.id}}" name="selected">
+                        
+                    
+                        <a class='flex-it' href="{{item.url}}">
+                            <div>
+                                <span style="left:0%;top:10%;position: relative;">location: ({{item.Lng}},{{item.Lat}})</span>      
+                                <span style="left:20%;top:10%;position: relative;">tradeTime: {{item.tradeTime}}</span>
+                                <span style="left:40%;top:10%;position: relative;">square: {{item.square}}</span>
+                                
+                                <div style="left:0%;top:80%;position: relative">
+                                    properties
+                                        <ul>
+                                            <li>{{item.bedRoom}} bedroom</li>
+                                            <li>{{item.livingRoom}} living room</li>
+                                            <li>{{item.kitchen}} kitchen</li>
+                                            <li>{{item.bathRoom}} bath room</li>
+                                            <li>{{item.floor}} floor</li>
+                                        </ul>
+                                </div>
+                                    
+                                
+                                <span style="left:60%;top:80%;position: relative;"><h3>Price: {{item.price}} per square feet</h3></span>
+                                <span style="left:60%;top:80%;position: relative;"><h3>Total price: {{item.totalPrice}}</h3></span>
+        
+                                </ul>
+                                
+                            </div>
+                        </a>
+                    
+                    </div>
+                    
+                    
+                    {% endfor %}
+                    
+                    
+                </form>
+                
+                {% endif %}
+            
+        </div>
+    </body>
+</html>
